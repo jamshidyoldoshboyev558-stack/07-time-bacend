@@ -1,27 +1,23 @@
-const { DataTypes } = require("sequelize");
-const { sequelize } = require("../config/db");
+const sequelize = require('../config/database');
+const User = require('./user');
+const MasterProfile = require('./masterProfile');
+const UserToken = require('./userToken');
+const BlacklistToken = require('./blacklistToken');
 
-const User = require("./UserModels")(sequelize, DataTypes);
-const Product = require("./ProductModels")(sequelize, DataTypes);
-const Order = require("./OrderModels")(sequelize, DataTypes);
-const Master = require("./MasterModels")(sequelize, DataTypes);
-
-User.hasMany(Product, { foreignKey: "seller_id" });
-Product.belongsTo(User, { foreignKey: "seller_id", as: "seller" });
-
-User.hasOne(Master, { foreignKey: "user_id" });
-Master.belongsTo(User, { foreignKey: "user_id" });
-
-User.hasMany(Order, { foreignKey: "client_id", as: "clientOrders" });
-Order.belongsTo(User, { foreignKey: "client_id", as: "client" });
-
-Master.hasMany(Order, { foreignKey: "master_id" });
-Order.belongsTo(Master, { foreignKey: "master_id" });
-
-module.exports = {
+const models = {
   sequelize,
+  Sequelize: sequelize.Sequelize,
   User,
-  Product,
-  Order,
-  Master
+  MasterProfile,
+  UserToken,
+  BlacklistToken
 };
+
+// Associations
+Object.keys(models).forEach(modelName => {
+  if (models[modelName].associate) {
+    models[modelName].associate(models);
+  }
+});
+
+module.exports = models;
