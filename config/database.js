@@ -9,12 +9,14 @@ const {
   DB_PASS = 'password',
   DATABASE_URL
 } = process.env;
+const { Pool } = require('pg');
+
+
 
 const sequelize = new Sequelize(DATABASE_URL || `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
   dialect: 'postgres',
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   dialectOptions: {
-    // PostgreSQL uchun
     timezone: 'Asia/Tashkent',
   },
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
