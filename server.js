@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const mastersRoutes = require('./routes/masters');
-const ordersRoutes = require('./routes/orders');
+const ordersRoutes = require('./routes/order');
 const productsRoutes = require('./routes/products');
 const sequelize = require('./config/database');
 
