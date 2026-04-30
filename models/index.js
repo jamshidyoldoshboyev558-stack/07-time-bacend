@@ -3,6 +3,7 @@ const User = require('./user');
 const MasterProfile = require('./masterProfile');
 const UserToken = require('./userToken');
 const BlacklistToken = require('./blacklistToken');
+const Order = require('./order');
 
 const models = {
   sequelize,
@@ -10,7 +11,8 @@ const models = {
   User,
   MasterProfile,
   UserToken,
-  BlacklistToken
+  BlacklistToken,
+  Order
 };
 
 // Associations

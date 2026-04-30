@@ -39,7 +39,7 @@ const Order = sequelize.define("Order", {
     region: DataTypes.STRING(100),
     price: DataTypes.DECIMAL(12, 2),
     commission_rate: DataTypes.DECIMAL(4, 2),
-    commission_amout: DataTypes.DECIMAL(12, 2),
+    commission_amount: DataTypes.DECIMAL(12, 2),
 
     proof_images: {
         type: DataTypes.JSON

@@ -1,6 +1,7 @@
 # Refresh & Logout API Implementation
 
-## Steps:
+## Steps
+
 - [ ] 1. Create BlacklistToken model for logout.
 - [ ] 2. Update authController: add refreshToken logic in login/register.
 - [ ] 3. Add refresh endpoint (verify refresh → new access).
@@ -11,4 +12,3 @@
 - [ ] 8. Test & complete.
 
 Current: 8/8 - COMPLETE ✅
-
