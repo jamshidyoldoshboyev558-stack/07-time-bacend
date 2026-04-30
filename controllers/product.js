@@ -1,13 +1,11 @@
-const sequelize = require('../config/database');
+const { Product } = require('../models');
 const { DataTypes, Op } = require('sequelize');
-const defineProductModel = require('../models/product');
-const productModel = defineProductModel(sequelize, DataTypes);
 
 exports.createProduct = async (req, res) => {
  try{
   const { seller_id, name, description, price, images, stock_quantity, is_available, delivery_region } = req.body;
 
-  const newProduct = await productModel.create({
+  const newProduct = await Product.create({
     seller_id,
     name,
     description,
@@ -28,8 +26,8 @@ exports.createProduct = async (req, res) => {
 
 exports.getById = async (req, res) => {
   try {
-    const id = Number(req.params.id);
-    const product = await productModel.findByPk(id);
+    const id = req.params.id;
+    const product = await Product.findByPk(id);
     res.json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -41,7 +39,7 @@ exports.getByNameQuery = async (req, res) => {
   try {
     const { name } = req.query;
 
-    const products = await productModel.findAll({
+    const products = await Product.findAll({
       where: {
         name: {
           [Op.iLike]: `%${name}%`
@@ -61,7 +59,7 @@ exports.getByNameParam = async (req, res) => {
   try {
     const name = req.params.name;
 
-    const products = await productModel.findAll({
+    const products = await Product.findAll({
       where: {
         name: {
           [Op.iLike]: `%${name}%`
@@ -82,7 +80,7 @@ exports.updateProduct = async (req, res) => {
     const id = Number(req.params.id);
     const { name, description, price, images, stock_quantity, is_available, delivery_region } = req.body;
 
-    const [updatedCount, updatedRows] = await productModel.update(
+    const [updatedCount, updatedRows] = await Product.update(
       {
         name,
         description,
@@ -113,7 +111,7 @@ exports.updateProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const id = Number(req.params.id);
-    const product = await productModel.findByPk(id);
+    const product = await Product.findByPk(id);
 
     if (!product) {
       return res.status(404).json({ message: "Topilmadi" });

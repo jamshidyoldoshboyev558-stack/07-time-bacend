@@ -9,37 +9,37 @@ const role = require('../middleware/role');
 router.use(authMiddleware);
 
 router.post(
-  "/orders", 
+  "/", 
   roleMiddleware("mijoz"),
   orderController.createOrder
 );
 
 router.get(
-  "/orders/:id",
+  "/:id",
   roleMiddleware("mijoz", "usta"),
   orderController.getOrder
 );
 
 router.put(
-  "orders/:id/accept",
+  "/:id/accept",
   roleMiddleware("usta"),
   orderController.acceptedOrder
 );
 
 router.put(
-  "/orders/:id/complete",
+  "/:id/complete",
   roleMiddleware("usta"),
   orderController.completeOrder
 );
 
 router.post(
-  "/orders/:id/review",
+  "/:id/review",
   roleMiddleware("mijoz"),
   orderController.reviewOrder
 );
 
 router.delete(
-  "/orders/:id/cancel",
+  "/:id/cancel",
   roleMiddleware("mijoz"),
   orderController.cancelOrder
 );

@@ -1,25 +1,28 @@
-const Master = require('../models/masterProfile');
+const { MasterProfile } = require('../models');
 
-// GET /masters?region=&specialty=
 exports.getMasters = async (req, res) => {
     try {
         const { region, specialty } = req.query;
-        let query = { is_active: true }; // Faqat aktiv ustalarni chiqarish
+        let whereClause = { is_available: true }; 
 
-        if (region) query.region = region;
-        if (specialty) query.specialty = specialty;
+        if (region) whereClause.region = region;
+        if (specialty) whereClause.specialty = specialty;
 
-        const masters = await Master.find(query).select('-password');
+        const masters = await MasterProfile.findAll({
+            where: whereClause,
+            attributes: { exclude: ['password_hash'] }
+        });
         res.status(200).json(masters);
     } catch (error) {
         res.status(500).json({ message: "Ustalarni yuklashda xatolik", error });
     }
 };
 
-// GET /masters/:id
 exports.getMasterById = async (req, res) => {
     try {
-        const master = await Master.findById(req.params.id).select('-password');
+        const master = await MasterProfile.findByPk(req.params.id, {
+            attributes: { exclude: ['password_hash'] }
+        });
         if (!master) return res.status(404).json({ message: "Usta topilmadi" });
         
         res.status(200).json(master);
@@ -28,35 +31,50 @@ exports.getMasterById = async (req, res) => {
     }
 };
 
-// PUT /masters/profile
 exports.updateProfile = async (req, res) => {
     try {
-        // req.user.id - tokendan olingan usta ID si
-        const updatedMaster = await Master.findByIdAndUpdate(
-            req.user.id, 
-            req.body, 
-            { new: true }
+        const updatedMaster = await MasterProfile.update(
+            req.body,
+            { 
+                where: { user_id: req.user.id },
+                returning: true
+            }
         );
-        res.status(200).json(updatedMaster);
+        res.status(200).json(updatedMaster[1][0]);
     } catch (error) {
         res.status(400).json({ message: "Profilni yangilashda xatolik", error });
     }
 };
 
-// POST /masters/portfolio
-exports.uploadPortfolio = async (req, res) => {
+exports.addPortfolioImage = async (req, res) => {
     try {
-        // Rasm yo'li (multer yoki shunga o'xshash middleware orqali)
         const imageUrl = req.file ? req.file.path : null;
         
         if (!imageUrl) return res.status(400).json({ message: "Rasm yuklanmadi" });
 
-        const master = await Master.findById(req.user.id);
-        master.portfolio.push(imageUrl);
-        await master.save();
+        const master = await MasterProfile.findOne({ where: { user_id: req.user.id } });
+        if (!master) return res.status(404).json({ message: "Usta topilmadi" });
+
+        const currentImages = master.portfolio_images || [];
+        currentImages.push(imageUrl);
+        
+        await master.update({ portfolio_images: currentImages });
 
         res.status(201).json({ message: "Portfolio yangilandi", imageUrl });
     } catch (error) {
         res.status(500).json({ message: "Rasm yuklashda xatolik", error });
+    }
+};
+
+exports.getMasterOrders = async (req, res) => {
+    try {
+        const { Order } = require('../models');
+        const orders = await Order.findAll({
+            where: { master_id: req.user.id },
+            order: [['created_at', 'DESC']]
+        });
+        res.status(200).json(orders);
+    } catch (error) {
+        res.status(500).json({ message: "Buyurtmalarni yuklashda xatolik", error });
     }
 };

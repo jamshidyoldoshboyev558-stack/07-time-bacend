@@ -54,6 +54,6 @@ const verifyRefreshMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = { authMiddleware, verifyRefreshMiddleware };
-
 module.exports = authMiddleware;
+module.exports.authMiddleware = authMiddleware;
+module.exports.verifyRefreshMiddleware = verifyRefreshMiddleware;

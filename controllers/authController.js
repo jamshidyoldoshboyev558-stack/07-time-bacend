@@ -130,7 +130,7 @@ const refresh = async (req, res) => {
     }
 
     const { accessToken: newAccessToken } = await generateTokens(user);
-    // Don't generate new refresh, just return new access
+
 
     res.json({
       message: 'Token yangilandi',

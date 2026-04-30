@@ -6,14 +6,14 @@ const {
   DB_PORT = '5432', 
   DB_NAME = 'time07',
   DB_USER = 'postgres',
-  DB_PASS = 'password',
+  DB_PASSWORD = 'password',
   DATABASE_URL
 } = process.env;
 const { Pool } = require('pg');
 
 
 
-const sequelize = new Sequelize(DATABASE_URL || `postgres://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
+const sequelize = new Sequelize(DATABASE_URL || `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
   dialect: 'postgres',
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   dialectOptions: {
@@ -28,9 +28,8 @@ const sequelize = new Sequelize(DATABASE_URL || `postgres://${DB_USER}:${DB_PASS
   }
 });
 
-// Test connection
 sequelize.authenticate()
-  .then(() => console.log('✅ Sequelize PostgreSQL ga ulandi'))
-  .catch(err => console.error('❌ Sequelize ulanish xatosi:', err));
+  .then(() => console.log(' Sequelize PostgreSQL ga ulandi'))
+  .catch(err => console.error(' Sequelize ulanish xatosi:', err));
 
 module.exports = sequelize;

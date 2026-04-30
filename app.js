@@ -1,39 +1,24 @@
-require("dotenv").config();
-
 const express = require("express");
-const cors = require("cors");
 const app = express();
-const { sequelize, connectDB } = require("./config/db");
+const productRoutes = require("./routes/products");
+const masterRoutes = require("./routes/masters");
+const { sequelize } = require("./models");
 
-// Middleware
-app.use(cors());
 app.use(express.json());
+app.use("/api/products", productRoutes);
+app.use("/api/masters", masterRoutes);
 
-// Routes
-const masterRoutes = require("./routes/MasterRoutes");
-const orderRoutes = require("./routes/OrderRoutes");
-const productRoutes = require("./routes/ProductRoutes");
-
-app.use("/api", masterRoutes);
-app.use("/api", orderRoutes);
-app.use("/api", productRoutes);
-
-const PORT = process.env.PORT || 3000;
-
-const start = async () => {
-  try {
-    await connectDB(); 
-    await sequelize.sync({ alter: true });
-
-    console.log(" Database tayyor");
-
-    app.listen(PORT, () => {
-      console.log(` Server ${PORT} portda ishladi`);
-    });
-
-  } catch (err) {
-    console.error(" Xato:", err);
-  }
-};
-
-start();
+app.listen(5000, async () => {
+    try {
+        await sequelize.authenticate();
+        console.log("✅ PostgreSQL ga ulandi");
+        await sequelize.sync();
+        console.log("✅ DB models yuklandi (sync skip)");
+        console.log("🚀 07-Time Server: http://localhost:5000");
+        console.log("📋 Health: http://localhost:5000/health");
+    } catch (error) {
+        console.error("❌ Server/DB xatosi:", error.message);
+        console.log("💡 DB setup: CREATE DATABASE time07 + .env yarating");
+    }
+});
+console.log("Iltimos, server.js faylidan foydalaning!");

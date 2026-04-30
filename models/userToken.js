@@ -54,7 +54,7 @@ UserToken.cleanup = async () => {
 
 // Find valid refresh for user
 UserToken.findValidRefresh = async (tokenHash) => {
-  const { Op } = require('../config/database').sequelize;
+  const { Op } = require('sequelize');
   return await UserToken.findOne({
     where: {
       token: tokenHash,

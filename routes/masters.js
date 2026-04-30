@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const masterController = require('../controllers/Profile');
-const { protect } = require('../middleware/auth'); // Avtorizatsiya uchun
-const upload = require('../middleware/region'); // Rasm yuklash uchun (multer)
+const authMiddleware = require('../middleware/auth');
+const { cancelOrder } = require("../controllers/order");
 
-// Ommaviy route-lar (hamma ko'ra oladi)
 router.get('/', masterController.getMasters);
 router.get('/:id', masterController.getMasterById);
-
-// Himoyalangan route-lar (faqat tizimga kirgan ustalar uchun)
-router.put('/profile', protect, masterController.updateProfile);
-router.post('/portfolio', protect, upload.single('image'), masterController.uploadPortfolio);
+router.put("/cancel/:id", cancelOrder)
+router.post('/portfolio', authMiddleware, masterController.addPortfolioImage);
+router.put('/orders/:id/cancel', authMiddleware, cancelOrder);
+router.get('/orders', authMiddleware, masterController.getMasterOrders);
 
 module.exports = router;
