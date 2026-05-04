@@ -2,6 +2,53 @@ const jwt = require('jsonwebtoken');
 const { User, UserToken } = require('../models/index');
 const crypto = require('crypto');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Middleware
+ *   description: Autentifikatsiya middleware lari
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     AuthError:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ *           description: Xato xabari
+ *           example: "Token kerak"
+ *     UserContext:
+ *       type: object
+ *       properties:
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ *         region:
+ *           type: string
+ *           description: Foydalanuvchi hududi
+ *           example: "Olmaliq"
+ */
+
+/**
+ * @swagger
+ * securitySchemes:
+ *   bearerAuth:
+ *     type: http
+ *     scheme: bearer
+ *     bearerFormat: JWT
+ *     description: JWT token ni "Bearer <token>" formatida kiriting
+ */
+
+/**
+ * @swagger
+ * /api/auth/*:
+ *   security:
+ *     - bearerAuth: []
+ *   description: Barcha autentifikatsiya talab qilinadigan endpoint lar
+ */
+
 const authMiddleware = async (req, res, next) => {
   try {
     let token = req.header('Authorization')?.replace('Bearer ', '');

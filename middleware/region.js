@@ -1,6 +1,55 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/UserModels");
 
+/**
+ * @swagger
+ * tags:
+ *   name: Middleware
+ *   description: Hududga asoslangan autentifikatsiya middleware lari
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     RegionAuth:
+ *       type: object
+ *       properties:
+ *         success:
+ *           type: boolean
+ *           description: Operatsiya muvaffaqiyati
+ *           example: false
+ *         message:
+ *           type: string
+ *           description: Xato xabari
+ *           example: "Token mavjud emas"
+ *     RegionContext:
+ *       type: object
+ *       properties:
+ *         region:
+ *           type: string
+ *           description: Foydalanuvchi hududi
+ *           example: "Olmaliq"
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ */
+
+/**
+ * @swagger
+ * /api/*:
+ *   security:
+ *     - bearerAuth: []
+ *   parameters:
+ *     - in: header
+ *       name: x-region
+ *       required: true
+ *       schema:
+ *         type: string
+ *       description: Hudud ma'lumoti
+ *       example: "Olmaliq"
+ *   description: Barcha hududga asoslangan endpoint lar
+ */
+
 const authRegionMiddleware = (requiredRole = null) => {
   return async (req, res, next) => {
     try {

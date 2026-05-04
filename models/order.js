@@ -11,6 +11,78 @@ const ORDER_STATUS = [
     "refunded"
 ];
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Order:
+ *       type: object
+ *       required:
+ *         - client_id
+ *         - description
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           description: Buyurtma unikal ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440000"
+ *         client_id:
+ *           type: string
+ *           format: uuid
+ *           description: Mijoz ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440001"
+ *         master_id:
+ *           type: string
+ *           format: uuid
+ *           description: Usta ID si (ixtiyoriy)
+ *           example: "550e8400-e29b-41d4-a716-446655440002"
+ *         description:
+ *           type: string
+ *           description: Buyurtma tavsifi
+ *           example: "Kompayterni ta'mirlash kerak"
+ *         status:
+ *           type: string
+ *           enum: [pending, accepted, in_progress, done, cancelled, paid, refunded]
+ *           description: Buyurtma statusi
+ *           example: "pending"
+ *           default: "pending"
+ *         region:
+ *           type: string
+ *           maxLength: 100
+ *           description: Buyurtma hududi
+ *           example: "Olmaliq"
+ *         price:
+ *           type: number
+ *           format: decimal
+ *           description: Buyurtma narxi
+ *           example: 150000.00
+ *         commission_rate:
+ *           type: number
+ *           format: decimal
+ *           description: Komissiya foizi
+ *           example: 0.05
+ *         commission_amount:
+ *           type: number
+ *           format: decimal
+ *           description: Komissiya miqdori
+ *           example: 7500.00
+ *         proof_images:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: Ish bajarilganligi isboti rasmlari
+ *           example: ["image1.jpg", "image2.jpg"]
+ *         completed_at:
+ *           type: string
+ *           format: date-time
+ *           description: Tugatilgan vaqti
+ *           example: "2025-01-01T15:30:00Z"
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yaratilgan vaqti
+ *           example: "2025-01-01T10:00:00Z"
+ */
 const Order = sequelize.define("Order", {
     id: {
         type: DataTypes.UUID,

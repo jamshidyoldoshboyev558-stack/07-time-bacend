@@ -29,9 +29,9 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-      POSTGRES_DB: ${DB_NAME:-time07}
+      POSTGRES_DB: ${DB_NAME:-ustadb}
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 

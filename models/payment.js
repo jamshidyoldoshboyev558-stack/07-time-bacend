@@ -17,6 +17,94 @@ const PAYMENT_METHOD = [
     'bank_card'
 ];
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Payment:
+ *       type: object
+ *       required:
+ *         - order_id
+ *         - user_id
+ *         - amount
+ *         - net_amount
+ *         - method
+ *         - status
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           description: Tolov unikal ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440000"
+ *         order_id:
+ *           type: string
+ *           format: uuid
+ *           description: Buyurtma ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440001"
+ *         user_id:
+ *           type: string
+ *           format: uuid
+ *           description: Foydalanuvchi ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440002"
+ *         amount:
+ *           type: number
+ *           format: decimal
+ *           description: Tolov summasi
+ *           example: 150000.00
+ *         commission_amount:
+ *           type: number
+ *           format: decimal
+ *           description: Komissiya miqdori
+ *           example: 7500.00
+ *           default: 0.00
+ *         net_amount:
+ *           type: number
+ *           format: decimal
+ *           description: Toza summa
+ *           example: 142500.00
+ *         method:
+ *           type: string
+ *           enum: [cash, click, payme, uzum, bank_card]
+ *           description: Tolov usuli
+ *           example: "click"
+ *         status:
+ *           type: string
+ *           enum: [pending, processing, completed, failed, refunded]
+ *           description: Tolov statusi
+ *           example: "pending"
+ *         transaction_id:
+ *           type: string
+ *           description: Tranzaksiya ID si
+ *           example: "TXN_123456789"
+ *         external_payment_id:
+ *           type: string
+ *           description: Tashqi tolov ID si
+ *           example: "EXT_123456"
+ *         payment_date:
+ *           type: string
+ *           format: date-time
+ *           description: Tolov sanasi
+ *           example: "2025-01-01T10:00:00Z"
+ *         refund_date:
+ *           type: string
+ *           format: date-time
+ *           description: Qaytarish sanasi
+ *           example: "2025-01-02T10:00:00Z"
+ *         refund_reason:
+ *           type: string
+ *           description: Qaytarish sababi
+ *           example: "Mijoz so'rashi bilan"
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yaratilgan vaqti
+ *           example: "2025-01-01T10:00:00Z"
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yangilangan vaqti
+ *           example: "2025-01-01T10:00:00Z"
+ */
 const Payment = sequelize.define('Payment', {
     id: {
         type: DataTypes.UUID,

@@ -1,9 +1,10 @@
 const { Payment, Order } = require('../models');
 const crypto = require('crypto');
 const { Op } = require('sequelize');
+require('dotenv').config();
 
-
-const COMMISSION_RATE = 0.05; 
+// Environment variable lardan komissiya foizini olish
+const COMMISSION_RATE = parseFloat(process.env.COMMISSION_RATE) || 0.05; 
 
 exports.createPayment = async (req, res) => {
     try {

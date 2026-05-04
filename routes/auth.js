@@ -5,6 +5,13 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: Foydalanuvchi autentifikatsiyasi
+ */
+
+/**
+ * @swagger
  * components:
  *   schemas:
  *     RegisterRequest:

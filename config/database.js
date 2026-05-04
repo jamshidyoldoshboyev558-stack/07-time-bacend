@@ -2,11 +2,11 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 // Environment variable lardan ma'lumot olish
-const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_HOST = process.env.DB_HOST || 'db';
 const DB_PORT = process.env.DB_PORT || '5432';
-const DB_NAME = process.env.DB_NAME || 'time07';
+const DB_NAME = process.env.DB_NAME || 'ustadb';
 const DB_USER = process.env.DB_USER || 'postgres';
-const DB_PASSWORD = process.env.DB_PASSWORD || '1234';
+const DB_PASSWORD = process.env.DB_PASSWORD || 'postgres';
 const DATABASE_URL = process.env.DATABASE_URL;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const DB_SSL = process.env.DB_SSL === 'true';

@@ -1,5 +1,94 @@
 const { MasterProfile } = require('../models');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Masters
+ *   description: Ustalar boshqaruvi
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     MasterQuery:
+ *       type: object
+ *       properties:
+ *         region:
+ *           type: string
+ *           description: Hudud bo'yicha filter
+ *           example: "Olmaliq"
+ *         specialty:
+ *           type: string
+ *           description: Mutaxassislik bo'yicha filter
+ *           example: "Elektrik"
+ *     ProfileUpdate:
+ *       type: object
+ *       properties:
+ *         specialty:
+ *           type: string
+ *           maxLength: 150
+ *           description: Mutaxassislik
+ *           example: "Elektrik"
+ *         experience_years:
+ *           type: integer
+ *           minimum: 0
+ *           maximum: 50
+ *           description: Tajriba yillari
+ *           example: 5
+ *         bio:
+ *           type: string
+ *           description: Biografiya
+ *           example: "5 yillik tajribaga ega elektrik"
+ *         is_available:
+ *           type: boolean
+ *           description: Mavjudligi
+ *           example: true
+ *     PortfolioResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Portfolio rasm qo'shildi"
+ *         profile:
+ *           $ref: '#/components/schemas/MasterProfile'
+ */
+
+/**
+ * @swagger
+ * /api/masters:
+ *   get:
+ *     summary: Barcha ustalarni olish
+ *     tags: [Masters]
+ *     parameters:
+ *       - in: query
+ *         name: region
+ *         schema:
+ *           type: string
+ *         description: Hudud bo'yicha filter
+ *         example: "Olmaliq"
+ *       - in: query
+ *         name: specialty
+ *         schema:
+ *           type: string
+ *         description: Mutaxassislik bo'yicha filter
+ *         example: "Elektrik"
+ *     responses:
+ *       200:
+ *         description: Ustalar ro'yxati
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/MasterProfile'
+ *       500:
+ *         description: Server xatosi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 exports.getMasters = async (req, res) => {
     try {
         const { region, specialty } = req.query;
