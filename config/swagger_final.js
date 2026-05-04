@@ -1,6 +1,5 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-require('dotenv').config();
 
 const options = {
   definition: {
@@ -21,36 +20,11 @@ const options = {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
-          bearerFormat: 'JWT'
+          bearerFormat: 'JWT',
+          description: 'JWT token ni "Bearer <token>" formatida kiriting'
         }
       },
       schemas: {
-        Error: {
-          type: 'object',
-          properties: {
-            error: {
-              type: 'string',
-              description: 'Xato xabari'
-            },
-            message: {
-              type: 'string',
-              description: 'Xabarnoma'
-            }
-          }
-        },
-        Success: {
-          type: 'object',
-          properties: {
-            message: {
-              type: 'string',
-              description: 'Muvaffaqiyat xabari'
-            },
-            data: {
-              type: 'object',
-              description: 'Ma\'lumotlar'
-            }
-          }
-        },
         Error: {
           type: 'object',
           properties: {
@@ -89,7 +63,4 @@ const options = {
 
 const specs = swaggerJsdoc(options);
 
-module.exports = {
-  specs,
-  swaggerUi
-};
+module.exports = { specs, swaggerUi };

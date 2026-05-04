@@ -1,6 +1,101 @@
 const { Product } = require('../models');
 const { DataTypes, Op } = require('sequelize');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Products
+ *   description: Mahsulotlar boshqaruvi
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     CreateProductRequest:
+ *       type: object
+ *       required:
+ *         - name
+ *         - price
+ *         - delivery_region
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: Mahsulot nomi
+ *           example: "Laptop Dell Inspiron"
+ *         description:
+ *           type: string
+ *           description: Mahsulot tavsifi
+ *           example: "Yuqori sifatli laptop"
+ *         price:
+ *           type: number
+ *           format: float
+ *           description: Mahsulot narxi
+ *           example: 2500000.00
+ *         images:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: Mahsulot rasmlari
+ *           example: ["image1.jpg", "image2.jpg"]
+ *         stock_quantity:
+ *           type: integer
+ *           description: Ombordagi miqdori
+ *           example: 10
+ *           default: 0
+ *         is_available:
+ *           type: boolean
+ *           description: Mahsulot mavjudligi
+ *           example: true
+ *           default: true
+ *         delivery_region:
+ *           type: string
+ *           description: Yetkazish hududi
+ *           example: "Olmaliq"
+ *     ProductResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Mahsulot yaratildi"
+ *         product:
+ *           $ref: '#/components/schemas/Product'
+ */
+
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Yangi mahsulot yaratish
+ *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/CreateProductRequest'
+ *     responses:
+ *       201:
+ *         description: Mahsulot muvaffaqiyatli yaratildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ProductResponse'
+ *       400:
+ *         description: Xato so'rov
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ *       500:
+ *         description: Server xatosi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 exports.createProduct = async (req, res) => {
  try{
   const { seller_id, name, description, price, images, stock_quantity, is_available, delivery_region } = req.body;

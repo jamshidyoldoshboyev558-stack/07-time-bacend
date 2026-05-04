@@ -2,6 +2,67 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const { Op } = sequelize;
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     UserToken:
+ *       type: object
+ *       required:
+ *         - user_id
+ *         - token
+ *         - type
+ *         - expires_at
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           description: Token unikal ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440000"
+ *         user_id:
+ *           type: string
+ *           format: uuid
+ *           description: Foydalanuvchi ID si
+ *           example: "550e8400-e29b-41d4-a716-446655440001"
+ *         token:
+ *           type: string
+ *           description: Token xeshi
+ *           example: "a1b2c3d4e5f6..."
+ *         type:
+ *           type: string
+ *           enum: [refresh]
+ *           description: Token turi
+ *           example: "refresh"
+ *           default: "refresh"
+ *         expires_at:
+ *           type: string
+ *           format: date-time
+ *           description: Token muddati tugash vaqti
+ *           example: "2025-01-31T10:00:00Z"
+ *         is_valid:
+ *           type: boolean
+ *           description: Token yaroqliligi
+ *           example: true
+ *           default: true
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yaratilgan vaqti
+ *           example: "2025-01-01T10:00:00Z"
+ *         updated_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yangilangan vaqti
+ *           example: "2025-01-01T10:00:00Z"
+ *     TokenValidation:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Token yaroqli"
+ *         token:
+ *           $ref: '#/components/schemas/UserToken'
+ */
 const UserToken = sequelize.define('UserToken', {
   id: {
     type: DataTypes.UUID,

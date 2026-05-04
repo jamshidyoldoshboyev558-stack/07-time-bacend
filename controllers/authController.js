@@ -4,6 +4,50 @@ const crypto = require('crypto');
 const { User, UserToken } = require('../models/index');
 const { Op } = require('sequelize');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: Foydalanuvchi autentifikatsiyasi
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     LoginResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Muvaffaqiyatli kirish"
+ *         user:
+ *           $ref: '#/components/schemas/User'
+ *         accessToken:
+ *           type: string
+ *           description: JWT access token
+ *           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ *         refreshToken:
+ *           type: string
+ *           description: Refresh token
+ *           example: "a1b2c3d4e5f6..."
+ *         expiresAt:
+ *           type: string
+ *           format: date-time
+ *           description: Token muddati
+ *           example: "2025-01-31T10:00:00Z"
+ *     RefreshResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Token yangilandi"
+ *         accessToken:
+ *           type: string
+ *           description: Yangi JWT access token
+ *           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+ */
+
 const generateTokens = async (user) => {
   const accessToken = jwt.sign(
     { userId: user.id, role: user.role },

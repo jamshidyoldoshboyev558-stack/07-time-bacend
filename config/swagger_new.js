@@ -1,6 +1,5 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-require('dotenv').config();
 
 const options = {
   definition: {
@@ -25,32 +24,6 @@ const options = {
         }
       },
       schemas: {
-        Error: {
-          type: 'object',
-          properties: {
-            error: {
-              type: 'string',
-              description: 'Xato xabari'
-            },
-            message: {
-              type: 'string',
-              description: 'Xabarnoma'
-            }
-          }
-        },
-        Success: {
-          type: 'object',
-          properties: {
-            message: {
-              type: 'string',
-              description: 'Muvaffaqiyat xabari'
-            },
-            data: {
-              type: 'object',
-              description: 'Ma\'lumotlar'
-            }
-          }
-        },
         Error: {
           type: 'object',
           properties: {
