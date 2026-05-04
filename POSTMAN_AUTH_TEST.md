@@ -1,12 +1,14 @@
 # 07-Time Auth API Test (Postman)
 
 ## 1. Server ishlayotganini tekshiring
+
 ```
 GET http://localhost:5000/health
 Expected: {"status":"OK"}
 ```
 
 ## 2. User Register (Yangi mijoz)
+
 ```
 POST http://localhost:5000/api/auth/register
 Content-Type: application/json
@@ -20,7 +22,9 @@ Content-Type: application/json
   "region": "Olmaliq"
 }
 ```
+
 **Expected (201):**
+
 ```json
 {
   "message": "Foydalanuvchi yaratildi...",
@@ -30,6 +34,7 @@ Content-Type: application/json
 ```
 
 ## 3. Usta Register
+
 ```
 POST /api/auth/register
 {
@@ -41,6 +46,7 @@ POST /api/auth/register
 ```
 
 ## 4. Login Test (now returns accessToken + refreshToken)
+
 ```
 POST http://localhost:5000/api/auth/login
 {
@@ -49,6 +55,7 @@ POST http://localhost:5000/api/auth/login
 }
 ```
 **Expected (200):**
+
 ```json
 {
   "message": "Muvaffaqiyatli kirish",
@@ -60,6 +67,7 @@ POST http://localhost:5000/api/auth/login
 ```
 
 ## 5. Refresh Token
+
 ```
 POST http://localhost:5000/api/auth/refresh
 Content-Type: application/json
@@ -68,6 +76,7 @@ Content-Type: application/json
 }
 ```
 **Expected (200):**
+
 ```json
 {
   "message": "Token yangilandi",
@@ -76,6 +85,7 @@ Content-Type: application/json
 ```
 
 ## 6. Logout
+
 ```
 POST http://localhost:5000/api/auth/logout
 {
@@ -83,6 +93,7 @@ POST http://localhost:5000/api/auth/logout
 }
 ```
 **Expected (200):**
+
 ```json
 {
   "message": "Muvaffaqiyatli chiqish"
@@ -91,12 +102,15 @@ POST http://localhost:5000/api/auth/logout
 (Refresh token invalidates)
 
 ## 7. Xato Tests
+
 - POST /login unverified → 403
 - POST /refresh invalid → 401
 - POST /logout no token → 200 (ok)
 
-## 🔧 Setup
+## Setup
+
 ```
 npm run dev
 ```
+
 Test with Postman or curl. Frontend: store access localStorage, refresh secure cookie.

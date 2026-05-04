@@ -6,7 +6,9 @@ const ORDER_STATUS = [
     "accepted",
     "in_progress",
     "done",
-    "cancelled"
+    "cancelled",
+    "paid",
+    "refunded"
 ];
 
 const Order = sequelize.define("Order", {
@@ -45,16 +47,14 @@ const Order = sequelize.define("Order", {
         type: DataTypes.JSON
     },
 
-    created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.DATE.NOW
-    },
-
     completed_at: DataTypes.DATE
 
 }, {
     tableName: "orders",
-    timestamps: false
+    timestamps: true,
+    underscored: true,
+    createdAt: "created_at",
+    updatedAt: false
 })
 
 module.exports = Order;

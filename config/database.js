@@ -6,7 +6,7 @@ const {
   DB_PORT = '5432', 
   DB_NAME = 'time07',
   DB_USER = 'postgres',
-  DB_PASSWORD = 'password',
+  DB_PASSWORD = '1234',
   DATABASE_URL
 } = process.env;
 const { Pool } = require('pg');

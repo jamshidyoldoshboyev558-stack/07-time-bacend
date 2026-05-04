@@ -35,7 +35,7 @@ const BlacklistToken = sequelize.define('BlacklistToken', {
   ]
 });
 
-// Cleanup expired tokens (cron later)
+const { Op } = require('sequelize');
 BlacklistToken.cleanup = async () => {
   await BlacklistToken.destroy({
     where: { expires_at: { [Op.lt]: new Date() } }

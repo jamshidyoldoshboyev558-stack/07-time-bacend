@@ -19,5 +19,5 @@ COPY . .
 # port
 EXPOSE 5000
 
-# start
+
 CMD ["npm", "run", "start"]
