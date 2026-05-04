@@ -39,7 +39,7 @@ const MasterProfile = sequelize.define('MasterProfile', {
     defaultValue: 0
   },
   portfolio_images: {
-    type: DataTypes.JSON, // TEXT[] → JSON array
+    type: DataTypes.JSON,
     defaultValue: []
   },
   bio: {

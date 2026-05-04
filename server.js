@@ -8,7 +8,9 @@ const authRoutes = require('./routes/auth');
 const mastersRoutes = require('./routes/masters');
 const ordersRoutes = require('./routes/order');
 const productsRoutes = require('./routes/products');
+const paymentRoutes = require('./routes/payment');
 const sequelize = require('./config/database');
+const { specs, swaggerUi } = require('./config/swagger');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +26,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/masters', mastersRoutes);
 app.use('/api/orders', ordersRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/payments', paymentRoutes);
+
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: '07-Time API Documentation'
+}));
 
 // Health check
 app.get('/health', (req, res) => {
@@ -34,20 +44,20 @@ app.get('/health', (req, res) => {
 async function startServer() {
   try {
     // await sequelize.authenticate();
-    // console.log('✅ PostgreSQL ga ulandi');
+    // console.log(' PostgreSQL ga ulandi');
     await sequelize.sync();
     // Sync faqat dev da va xavfsiz
     // Sync xatosini oldini olish - models tozalangach
-    //console.log('✅ DB models yuklandi (sync skip)');
+    //console.log(' DB models yuklandi (sync skip)');
     // await sequelize.sync({ force: false }); // keyinroq yoqing
     
     app.listen(PORT, () => {
-      console.log(`🚀 07-Time Server: http://localhost:${PORT}`);
-      console.log(`📋 Health: http://localhost:${PORT}/health`);
+      console.log(` 07-Time Server: http://localhost:${PORT}`);
+      console.log(` Health: http://localhost:${PORT}/health`);
     });
   } catch (error) {
-    console.error('❌ Server/DB xatosi:', error.message);
-    console.log('💡 DB setup: CREATE DATABASE time07 + .env yarating');
+    console.error(' Server/DB xatosi:', error.message);
+    console.log('- DB setup: CREATE DATABASE time07 + .env yarating');
   }
 }
 

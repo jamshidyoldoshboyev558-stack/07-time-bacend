@@ -4,6 +4,7 @@ const MasterProfile = require('./masterProfile');
 const UserToken = require('./userToken');
 const BlacklistToken = require('./blacklistToken');
 const Order = require('./order');
+const Payment = require('./payment');
 
 const models = {
   sequelize,
@@ -12,10 +13,11 @@ const models = {
   MasterProfile,
   UserToken,
   BlacklistToken,
-  Order
+  Order,
+  Payment
 };
 
-// Associations
+
 Object.keys(models).forEach(modelName => {
   if (models[modelName].associate) {
     models[modelName].associate(models);

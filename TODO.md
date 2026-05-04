@@ -11,4 +11,4 @@
 - [ ] 7. Update POSTMAN_AUTH_TEST.md.
 - [ ] 8. Test & complete.
 
-Current: 8/8 - COMPLETE ✅
+Current: 8/8 - COMPLETE
