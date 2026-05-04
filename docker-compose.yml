@@ -3,15 +3,19 @@ version: "3.9"
 services:
   app:
     build: .
-    container_name: usta-app
+    container_name: 07time-app
     ports:
       - "5000:5000"
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: ustadb
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-time07}
+      JWT_SECRET: ${JWT_SECRET:-07time_jamshid}
+      PORT: ${PORT:-5000}
+      NODE_ENV: ${NODE_ENV:-development}
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@${DB_HOST:-db}:${DB_PORT:-5432}/${DB_NAME:-time07}
     depends_on:
       - db
     volumes:
@@ -20,14 +24,14 @@ services:
 
   db:
     image: postgres:15
-    container_name: usta-db
+    container_name: 07time-db
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ustadb
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-time07}
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
