@@ -12,78 +12,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     RegisterRequest:
- *       type: object
- *       required:
- *         - full_name
- *         - phone
- *         - password
- *         - role
- *       properties:
- *         full_name:
- *           type: string
- *           description: Foydalanuvchi to'liq ismi
- *         phone:
- *           type: string
- *           description: Telefon raqami
- *         email:
- *           type: string
- *           format: email
- *           description: Email manzili (ixtiyoriy)
- *         password:
- *           type: string
- *           description: Parol
- *         role:
- *           type: string
- *           enum: [mijoz, usta, sotuvchi]
- *           description: Foydalanuvchi roli
- *         region:
- *           type: string
- *           description: Hudud (ixtiyoriy, default: Olmaliq)
- *     LoginRequest:
- *       type: object
- *       required:
- *         - phone
- *         - password
- *       properties:
- *         phone:
- *           type: string
- *           description: Telefon raqami
- *         password:
- *           type: string
- *           description: Parol
- *     RefreshRequest:
- *       type: object
- *       required:
- *         - refreshToken
- *       properties:
- *         refreshToken:
- *           type: string
- *           description: Refresh token
- *     AuthResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *           description: Xabarnoma
- *         user:
- *           $ref: '#/components/schemas/User'
- *         accessToken:
- *           type: string
- *           description: JWT access token
- *         refreshToken:
- *           type: string
- *           description: Refresh token
- *         expiresAt:
- *           type: string
- *           format: date-time
- *           description: Token muddati
- */
-
-/**
- * @swagger
  * /api/auth/register:
  *   post:
  *     summary: Yangi foydalanuvchi ro'yxatdan o'tkazish
@@ -93,7 +21,26 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/RegisterRequest'
+ *             type: object
+ *             required:
+ *               - full_name
+ *               - phone
+ *               - password
+ *               - role
+ *             properties:
+ *               full_name:
+ *                 type: string
+ *                 description: Foydalanuvchi to'liq ismi
+ *               phone:
+ *                 type: string
+ *                 description: Telefon raqami
+ *               password:
+ *                 type: string
+ *                 description: Parol
+ *               role:
+ *                 type: string
+ *                 enum: [mijoz, usta, sotuvchi]
+ *                 description: Foydalanuvchi roli
  *     responses:
  *       201:
  *         description: Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi

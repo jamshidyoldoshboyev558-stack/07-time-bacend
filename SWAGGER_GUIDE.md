@@ -182,9 +182,3 @@ Swagger ishlamayotgan bo'lsa:
    ```
 3. **Route larni tekshiring** - Swagger kommentariyalari to'g'ri yozilganmi
 4. **Console log larni tekshiring** - Xatoliklar bo'lishi mumkin
-
-
-
-
-
-
