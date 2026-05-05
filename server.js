@@ -24,7 +24,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 5000}`,
+        url: 'http://localhost:5000',
         description: 'Development server'
       }
     ],
@@ -33,7 +33,36 @@ const swaggerOptions = {
         bearerAuth: {
           type: 'http',
           scheme: 'bearer',
-          bearerFormat: 'JWT'
+          bearerFormat: 'JWT',
+          description: 'JWT token ni "Bearer <token>" formatida kiriting'
+        }
+      },
+      schemas: {
+        Error: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'string',
+              description: 'Xato xabari'
+            },
+            message: {
+              type: 'string',
+              description: 'Xabarnoma'
+            }
+          }
+        },
+        Success: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              description: 'Muvaffaqiyat xabari'
+            },
+            data: {
+              type: 'object',
+              description: 'Ma\'lumotlar'
+            }
+          }
         }
       }
     }
