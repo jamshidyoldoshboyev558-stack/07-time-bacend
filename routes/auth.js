@@ -53,19 +53,40 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  *       409:
  *         description: Telefon band
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  *       500:
  *         description: Server xatosi
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  */
 router.post('/register', register);
 
@@ -80,32 +101,80 @@ router.post('/register', register);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LoginRequest'
+ *             type: object
+ *             required:
+ *               - phone
+ *               - password
+ *             properties:
+ *               phone:
+ *                 type: string
+ *                 description: Telefon raqami
+ *               password:
+ *                 type: string
+ *                 description: Parol
  *     responses:
  *       200:
  *         description: Muvaffaqiyatli kirish
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
+ *                 user:
+ *                   type: object
+ *                   description: Foydalanuvchi ma'lumotlari
+ *                 accessToken:
+ *                   type: string
+ *                   description: JWT access token
+ *                 refreshToken:
+ *                   type: string
+ *                   description: Refresh token
+ *                 expiresAt:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Token muddati
  *       401:
  *         description: Noto'g'ri telefon/parol
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  *       403:
  *         description: Profil tasdiqlanmagan
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  *       500:
  *         description: Server xatosi
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  */
 router.post('/login', login);
 
@@ -138,13 +207,27 @@ router.post('/login', login);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  *       500:
  *         description: Server xatosi
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  */
 router.post('/refresh', refresh);
 
@@ -181,7 +264,14 @@ router.post('/refresh', refresh);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error'
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: Xato xabari
+ *                 message:
+ *                   type: string
+ *                   description: Xabarnoma
  */
 router.post('/logout', logout);
 
