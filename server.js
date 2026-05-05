@@ -63,6 +63,88 @@ const swaggerOptions = {
               description: 'Ma\'lumotlar'
             }
           }
+        },
+        AuthResponse: {
+          type: 'object',
+          properties: {
+            message: {
+              type: 'string',
+              description: 'Xabarnoma'
+            },
+            user: {
+              type: 'object',
+              description: 'Foydalanuvchi ma\'lumotlari'
+            },
+            accessToken: {
+              type: 'string',
+              description: 'JWT access token'
+            },
+            refreshToken: {
+              type: 'string',
+              description: 'Refresh token'
+            },
+            expiresAt: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Token muddati'
+            }
+          }
+        },
+        LoginRequest: {
+          type: 'object',
+          required: ['phone', 'password'],
+          properties: {
+            phone: {
+              type: 'string',
+              description: 'Telefon raqami'
+            },
+            password: {
+              type: 'string',
+              description: 'Parol'
+            }
+          }
+        },
+        RegisterRequest: {
+          type: 'object',
+          required: ['full_name', 'phone', 'password', 'role'],
+          properties: {
+            full_name: {
+              type: 'string',
+              description: 'Foydalanuvchi to\'liq ismi'
+            },
+            phone: {
+              type: 'string',
+              description: 'Telefon raqami'
+            },
+            email: {
+              type: 'string',
+              format: 'email',
+              description: 'Email manzili (ixtiyoriy)'
+            },
+            password: {
+              type: 'string',
+              description: 'Parol'
+            },
+            role: {
+              type: 'string',
+              enum: ['mijoz', 'usta', 'sotuvchi'],
+              description: 'Foydalanuvchi roli'
+            },
+            region: {
+              type: 'string',
+              description: 'Hudud (ixtiyoriy, default: Olmaliq)'
+            }
+          }
+        },
+        RefreshRequest: {
+          type: 'object',
+          required: ['refreshToken'],
+          properties: {
+            refreshToken: {
+              type: 'string',
+              description: 'Refresh token'
+            }
+          }
         }
       }
     }
@@ -106,8 +188,8 @@ app.get('/', (req, res) => {
 
 // Serverni ishga tushirish
 app.listen(PORT, () => {
-  console.log(`🚀 07-Time Server: http://localhost:${PORT}`);
-  console.log(`📚 Swagger UI: http://localhost:${PORT}/api-docs`);
-  console.log(`💚 Health: http://localhost:${PORT}/health`);
-  console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(` 07-Time Server: http://localhost:${PORT}`);
+  console.log(`Swagger UI: http://localhost:${PORT}/api-docs`);
+  console.log(` Health: http://localhost:${PORT}/health`);
+  console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
 });
