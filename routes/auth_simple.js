@@ -12,6 +12,46 @@ const router = express.Router();
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           description: Foydalanuvchi ID
+ *         full_name:
+ *           type: string
+ *           description: Foydalanuvchi to'liq ismi
+ *         phone:
+ *           type: string
+ *           description: Telefon raqami
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: Email manzili
+ *         role:
+ *           type: string
+ *           enum: [mijoz, usta, sotuvchi]
+ *           description: Foydalanuvchi roli
+ *         region:
+ *           type: string
+ *           description: Hudud
+ *         is_verified:
+ *           type: boolean
+ *           description: Telefon tasdiqlanganmi
+ *         is_active:
+ *           type: boolean
+ *           description: Foydalanuvchi aktivmi
+ *         created_at:
+ *           type: string
+ *           format: date-time
+ *           description: Yaratilgan vaqti
+ */
+
+/**
+ * @swagger
  * /api/auth/register:
  *   post:
  *     summary: Yangi foydalanuvchi ro'yxatdan o'tkazish
@@ -21,44 +61,46 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/RegisterRequest'
+ *             type: object
+ *             required:
+ *               - full_name
+ *               - phone
+ *               - password
+ *               - role
+ *             properties:
+ *               full_name:
+ *                 type: string
+ *                 description: Foydalanuvchi to'liq ismi
+ *               phone:
+ *                 type: string
+ *                 description: Telefon raqami
+ *               password:
+ *                 type: string
+ *                 description: Parol
+ *               role:
+ *                 type: string
+ *                 enum: [mijoz, usta, sotuvchi]
+ *                 description: Foydalanuvchi roli
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: Email manzili (ixtiyoriy)
+ *               region:
+ *                 type: string
+ *                 description: Hudud (ixtiyoriy, default: Olmaliq)
  *     responses:
  *       201:
  *         description: Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Xabarnoma
- *                 user:
- *                   type: object
- *                   description: Foydalanuvchi ma'lumotlari
- *                 accessToken:
- *                   type: string
- *                   description: JWT access token
- *                 refreshToken:
- *                   type: string
- *                   description: Refresh token
- *                 expiresAt:
- *                   type: string
- *                   format: date-time
- *                   description: Token muddati
+ *               $ref: '#/components/schemas/User'
  *       400:
  *         description: Xato so'rov
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   description: Xato xabari
- *                 message:
- *                   type: string
- *                   description: Xabarnoma
+ *               $ref: '#/components/schemas/Error'
  *       409:
  *         description: Telefon band
  *         content:
@@ -116,24 +158,7 @@ router.post('/register', register);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Xabarnoma
- *                 user:
- *                   type: object
- *                   description: Foydalanuvchi ma'lumotlari
- *                 accessToken:
- *                   type: string
- *                   description: JWT access token
- *                 refreshToken:
- *                   type: string
- *                   description: Refresh token
- *                 expiresAt:
- *                   type: string
- *                   format: date-time
- *                   description: Token muddati
+ *               $ref: '#/components/schemas/User'
  *       401:
  *         description: Noto'g'ri telefon/parol
  *         content:
@@ -141,31 +166,18 @@ router.post('/register', register);
  *             schema:
  *               type: object
  *               properties:
- *                 error:
- *                   type: string
- *                   description: Xato xabari
- *                 message:
- *                   type: string
- *                   description: Xabarnoma
  *       403:
  *         description: Profil tasdiqlanmagan
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   description: Xato xabari
- *                 message:
- *                   type: string
- *                   description: Xabarnoma
+ *               $ref: '#/components/schemas/Error'
  *       500:
  *         description: Server xatosi
  *         content:
  *           application/json:
  *             schema:
- *               type: object
+ *               $ref: '#/components/schemas/Error'
  *               properties:
  *                 error:
  *                   type: string
@@ -187,7 +199,13 @@ router.post('/login', login);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/RefreshRequest'
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 description: Refresh token
  *     responses:
  *       200:
  *         description: Token muvaffaqiyatli yangilandi
@@ -198,10 +216,12 @@ router.post('/login', login);
  *               properties:
  *                 message:
  *                   type: string
+ *                   description: Xabarnoma
  *                 accessToken:
  *                   type: string
+ *                   description: Yangi JWT access token
  *       401:
- *         description: Refresh token xatosi
+ *         description: Yaroqsiz refresh token
  *         content:
  *           application/json:
  *             schema:
@@ -257,6 +277,7 @@ router.post('/refresh', refresh);
  *               properties:
  *                 message:
  *                   type: string
+ *                   description: Xabarnoma
  *       500:
  *         description: Server xatosi
  *         content:
